@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9af1c6015733a42be940cc462aa7ed, type: 3}
+  m_Name: Log 6
+  m_EditorClassIdentifier: 
+  pipeline: {fileID: 11400000, guid: a2138a27f4d606943829818f982cb5f9, type: 2}
+  creationDate:
+    ticks: 638347212637684015
+  entries:
+  - logLevel: 3
+    internalTime:
+      ticks: 638347212653030056
+    message: '[PreggoPipeline](assetlink://Assets%2fPreggoPipeline.asset) Finished
+      execution'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347212651844769
+    message: '[CodePipeline](assetlink://Assets%2fCodePipeline.asset) Finished execution'
+    context: []
+  - logLevel: 0
+    internalTime:
+      ticks: 638347212651534777
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      Build Completed: ``` ThunderKit/Libraries/PortalsOfPreggo.dll ```'
+    context: []
+  - logLevel: 0
+    internalTime:
+      ticks: 638347212649274687
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      staging ``` ThunderKit/Libraries ``` in ``` ../PoP_V0.24.1.0_win/BepInEx/plugins/PortalsOfPreggo
+      ```
+
+'
+    context:
+    - "Assembly Files\r\nFrom: ThunderKit/Libraries\\PortalsOfPreggo.dll\r\n  To:
+      ../PoP_V0.24.1.0_win/BepInEx/plugins/PortalsOfPreggo/PortalsOfPreggo.dll\r\n\r\n"
+  - logLevel: 0
+    internalTime:
+      ticks: 638347212646214543
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      staging ``` ThunderKit/Libraries ``` in ``` export/ ```
+
+'
+    context:
+    - "Assembly Files\r\nFrom: ThunderKit/Libraries\\PortalsOfPreggo.dll\r\n  To:
+      export/PortalsOfPreggo.dll\r\n\r\n"
+  - logLevel: 0
+    internalTime:
+      ticks: 638347212642032774
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      Building : ThunderKit/Libraries/PortalsOfPreggo.dll'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347212639315593
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)
+      Execute Job'
+    context: []
+  - logLevel: 0
+    internalTime:
+      ticks: 638347212639215906
+    message: '[CodePipeline](assetlink://Assets%2fCodePipeline.asset) Clearing PipelineJob
+      error states'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347212639164686
+    message: '[CodePipeline](assetlink://Assets%2fCodePipeline.asset) Execute Pipeline'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347212639091272
+    message: '[PreggoPipeline(0 - ExecutePipeline)](assetlink://Assets%2fPreggoPipeline.asset)
+      Execute Job'
+    context: []
+  - logLevel: 0
+    internalTime:
+      ticks: 638347212639011309
+    message: '[PreggoPipeline](assetlink://Assets%2fPreggoPipeline.asset) Clearing
+      PipelineJob error states'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347212638811277
+    message: '[PreggoPipeline](assetlink://Assets%2fPreggoPipeline.asset) Execute
+      Pipeline'
+    context: []

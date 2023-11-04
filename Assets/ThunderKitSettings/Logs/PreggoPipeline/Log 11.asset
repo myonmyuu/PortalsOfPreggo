@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9af1c6015733a42be940cc462aa7ed, type: 3}
+  m_Name: Log 11
+  m_EditorClassIdentifier: 
+  pipeline: {fileID: 11400000, guid: a2138a27f4d606943829818f982cb5f9, type: 2}
+  creationDate:
+    ticks: 638347219380035980
+  entries:
+  - logLevel: 0
+    internalTime:
+      ticks: 638347219384067451
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      Build Completed: ```  ```'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347219381880422
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      Execute Job'
+    context: []
+  - logLevel: 0
+    internalTime:
+      ticks: 638347219381750392
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      Clearing PipelineJob error states'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347219381655253
+    message: '[CodePipeline(0 - StageAssemblies)](assetlink://Assets%2fCodePipeline.asset)[PreggoManifest](assetlink://Assets%2fPreggoManifest.asset)
+      Execute Pipeline'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347219381595270
+    message: '[PreggoPipeline(0 - ExecutePipeline)](assetlink://Assets%2fPreggoPipeline.asset)
+      Execute Job'
+    context: []
+  - logLevel: 0
+    internalTime:
+      ticks: 638347219381525269
+    message: '[PreggoPipeline(0 - ExecutePipeline)](assetlink://Assets%2fPreggoPipeline.asset)
+      Clearing PipelineJob error states'
+    context: []
+  - logLevel: 3
+    internalTime:
+      ticks: 638347219381505252
+    message: '[PreggoPipeline(0 - ExecutePipeline)](assetlink://Assets%2fPreggoPipeline.asset)
+      Execute Pipeline'
+    context: []

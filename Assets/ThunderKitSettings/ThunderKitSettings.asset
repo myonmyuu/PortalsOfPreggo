@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9057f7f601990a4883b2cb295c4f43e, type: 3}
+  m_Name: ThunderKitSettings
+  m_EditorClassIdentifier: 
+  FirstLoad: 0
+  ShowOnStartup: 1
+  GameExecutable: PortalsOfPhereon.exe
+  GamePath: ..\PoP_V0.24.1.0_win
+  Is64Bit: 0
+  DateTimeFormat: HH:mm:ss:fff
+  CreatedDateFormat: MMM/dd HH:mm:ss
+  ShowLogWindow: 1
+  LogPackageSourceTimings: 0
+  ImageCachePath: Library/MarkdownImageCache
+  CachedImageCount: 0
+  CacheSize: 0
+  MarkdownOpenMode: 1
+  SelectedPipeline: {fileID: 11400000, guid: a2138a27f4d606943829818f982cb5f9, type: 2}
+  SelectedManifest: {fileID: 11400000, guid: 42a744b1a671e0945bacbb153ace0b5f, type: 2}
+  QuickAccessPipelines:
+  - {fileID: 11400000, guid: a2138a27f4d606943829818f982cb5f9, type: 2}
+  QuickAccessManifests:
+  - {fileID: 11400000, guid: 42a744b1a671e0945bacbb153ace0b5f, type: 2}
+  ImportConfiguration: {fileID: 11400000, guid: 0537cc830b8067744a0dc5baf4a708ce,
+    type: 2}

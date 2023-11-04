@@ -1,0 +1,30 @@
+{
+	"Lua.diagnostics.globals": [
+		"log",
+		"eventName",
+		"prog",
+		"minutes",
+		"get",
+		"current",
+		"addAct",
+		"currentRepMan",
+		"event",
+		"pregData",
+		"dateCard",
+		"date",
+		"isplayer",
+		"giver",
+		"reciever",
+		"preggovalid",
+		"giverPart",
+		"recieverPart",
+		"dateactivity",
+		"canplay",
+		"keywords",
+		"datemanager",
+		"args"
+	],
+	"lua.targetVersion": "5.2",
+	"Lua.diagnostics.disable": [
+	]
+}

@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6356680721543267896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7e13dda513544419a89926bd12ad8a, type: 3}
+  m_Name: AssemblyDefinitions
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - export/
+  - <GamePath>/BepInEx/plugins/PortalsOfPreggo
+  definitions:
+  - {fileID: 5897886265953266890, guid: d4383e209b4ec924ab940f1122d93cb3, type: 3}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e563561e08b6a3642a487177f5cfbb37, type: 3}
+  m_Name: PreggoManifest
+  m_EditorClassIdentifier: 
+  Data:
+  - {fileID: 4497449708580854677}
+  - {fileID: -6356680721543267896}
+  - {fileID: 2419752518452889464}
+  identity: {fileID: 4497449708580854677}
+  QuickAccess: 1
+--- !u!114 &2419752518452889464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d1008b78cb6e846889b7778282fbef, type: 3}
+  m_Name: AssetBundleDefinitions
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - export/
+  - <GamePath>/BepInEx/plugins/PortalsOfPreggo
+  assetBundles:
+  - assetBundleName: preggoassets
+    assets:
+    - {fileID: 1171069729660207217, guid: e49ad8d6bd5f13941962c51d4ad891dc, type: 3}
+    - {fileID: 8741649055045016922, guid: 326cef288f982824cacd32abf8a2d594, type: 3}
+    - {fileID: 2951479496880173618, guid: fac786977e6726f4d8fe1f654b07795d, type: 3}
+    - {fileID: 2800000, guid: c1de4d7f6491988419883837fcc9c4c4, type: 3}
+    - {fileID: 2800000, guid: 287edf7f1574dec4db66216d70561b44, type: 3}
+    - {fileID: 2800000, guid: e3a4f544f5312e34eb0f1a8380a51bf6, type: 3}
+    - {fileID: 2800000, guid: a53858d2caac5af49881e64759aa62ad, type: 3}
+    - {fileID: 2800000, guid: e6af884ea06e6c641b94cba2489da692, type: 3}
+    - {fileID: 2800000, guid: ece3e8d0463b450458e55e293eaaa866, type: 3}
+    - {fileID: 2800000, guid: 2b548978241d7d645a93944395e4dc22, type: 3}
+    - {fileID: 2800000, guid: 0947f4bea947ccf4f9d89377dac44535, type: 3}
+    - {fileID: 2800000, guid: 085fdad86c52e444c8f8bf81052dd32f, type: 3}
+    - {fileID: 2800000, guid: 3e7add8fb9aebe544bb2aea644474995, type: 3}
+    - {fileID: 2800000, guid: 35afa56f45d211d47912467e33ebe61e, type: 3}
+--- !u!114 &4497449708580854677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22bb7fd1d3b56a48bc52f8e407901d6, type: 3}
+  m_Name: ManifestIdentity
+  m_EditorClassIdentifier: 
+  StagingPaths: []
+  Author: MyonMyuu, Maaji
+  Name: Portals of Preggo
+  Description: Pregnancy-related expansion for Portals of Phereon.
+  Version: 0.1.0
+  Dependencies: []

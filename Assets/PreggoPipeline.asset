@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5230003221760686726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03063c7a6ec04cc4c82c75cf9bcc8db8, type: 3}
+  m_Name: Copy
+  m_EditorClassIdentifier: 
+  Active: 1
+  PerManifest: 0
+  ListType: 1
+  Manifests: []
+  ReplaceDirectory: 0
+  Recursive: 1
+  SourceRequired: 1
+  EstablishDestination: 1
+  Source: Assets/Scripts/Lua
+  Destination: <GamePath>/BepInEx/plugins/PortalsOfPreggo/scripts
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3695521163bdd74fa2845bbd3438240, type: 3}
+  m_Name: PreggoPipeline
+  m_EditorClassIdentifier: 
+  Data:
+  - {fileID: 8843877479521851051}
+  - {fileID: 2386369994376898507}
+  - {fileID: -5230003221760686726}
+  - {fileID: 5317591037728065440}
+  QuickAccess: 1
+  manifest: {fileID: 11400000, guid: 42a744b1a671e0945bacbb153ace0b5f, type: 2}
+--- !u!114 &2386369994376898507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50df4f9027e15e04b931a8d460fb22c5, type: 3}
+  m_Name: ExecutePipeline
+  m_EditorClassIdentifier: 
+  Active: 1
+  OverrideManifest: 0
+  targetpipeline: {fileID: 11400000, guid: 83f115bb4457d194fbfac9ce0b6b72e5, type: 2}
+--- !u!114 &5317591037728065440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03063c7a6ec04cc4c82c75cf9bcc8db8, type: 3}
+  m_Name: Copy
+  m_EditorClassIdentifier: 
+  Active: 1
+  PerManifest: 0
+  ListType: 1
+  Manifests: []
+  ReplaceDirectory: 0
+  Recursive: 1
+  SourceRequired: 1
+  EstablishDestination: 1
+  Source: Assets/Externaldlls/copy
+  Destination: <GamePath>/BepInEx/plugins/PortalsOfPreggo/external
+--- !u!114 &8843877479521851051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50df4f9027e15e04b931a8d460fb22c5, type: 3}
+  m_Name: ExecutePipeline
+  m_EditorClassIdentifier: 
+  Active: 1
+  OverrideManifest: 0
+  targetpipeline: {fileID: 11400000, guid: d7847b863790704498f3dc546ab4aec3, type: 2}

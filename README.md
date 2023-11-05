@@ -13,8 +13,9 @@ A pregnancy expansion for Portals of Phereon.
   they take time to grow, and are added to the egg inventory after birth
 
 ## Farm/Hatching
-- eggs keep track of who the father/mother is (barring brothel customers and other transient characters)
-  - characters can refer to you as Mom/Dad if you are one of the parents (configurable)
+eggs keep track of who the father/mother is (barring brothel customers and other transient characters).
+Characters can refer to you as Mom/Dad if you are one of the parents (configurable).
+Farm pairs insemniate each other instead of directly creating eggs.
  
 ## Items
 A small assortment of items to interact with pregnancy (can be disabled if users feel that they dilute the item pool too much).
@@ -53,4 +54,6 @@ Vaginally penetrating actions will take virginities (configurable)
 ## Events
 When certain events trigger, cum can be added to involved characters. These events are triggerable through Lua. One example is featured (Sylvie & Castalia portal event).
 
-I probably forgot something...
+# Balancing
+Pregnancies take time, and chances are that it'll be one egg at a time. Taking this into consideration, birthed eggs begin with hatching progress based on pregnancy time and have extra stability. Additionally, random genetics of the egg will be increased based on the parent's virility and fertility. (configs for this are ToDo)
+In an effort to make the main character remain a valid breeding partner, their genetics increase when they birth eggs with better genetics. (toggable in config)

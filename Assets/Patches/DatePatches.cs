@@ -58,8 +58,9 @@ namespace Patches
                 __instance.Player.removeTrait(SpecialTraits.Virgin);
             }
 
-            if (reciever == __instance.Player)
-                PortalsOfPreggoMain.Content.PreggoManager.Instance.CumIn(reciever, giver);
+            // TODO: check if this was actually uneccessary or not
+            //if (reciever == __instance.Player)
+                //PortalsOfPreggoMain.Content.PreggoManager.Instance.CumIn(reciever, giver);
         }
 
         [HarmonyPatch(typeof(DateManager), nameof(DateManager.clickedOnCard))]
@@ -151,5 +152,11 @@ namespace Patches
             __result = Mathf.Min(10, __result);
         }
 
+        [HarmonyPatch(typeof(Date), nameof(Date.spentTime))]
+        [HarmonyPostfix]
+        private static void Date_spentTime(int v, bool affect)
+        {
+            PreggoManager.Instance.PassTimeForAll(v);
+        }
     }
 }

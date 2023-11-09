@@ -55,6 +55,7 @@ namespace Patches
                     .ReadSaveData();
             }
             PreggoManager.Instance.InitSave();
+            PreggoManager.Instance.PassTimeForAll(0);
         }
 
     }

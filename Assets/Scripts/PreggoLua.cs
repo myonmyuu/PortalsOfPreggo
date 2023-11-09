@@ -40,6 +40,13 @@ namespace PortalsOfPreggoMain.Content
             });
             GlobalTable["require"] = GlobalTable["get"];
             GlobalTable["ftext"] = new Func<FText>(() => new FText());
+
+            var staticTable = new Table(GlobalScript);
+            foreach (var t in typeof(MainCharacter).Assembly.GetTypes())
+            {
+                staticTable[t.Name] = t;
+            }
+            GlobalTable["_static"] = staticTable;
         }
 
         private string LuaPath = System.IO.Path.Combine(PortalsOfPreggoPlugin.Instance.Path, "scripts");

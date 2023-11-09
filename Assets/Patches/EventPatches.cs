@@ -39,7 +39,7 @@ namespace Patches
 			PreggoLua.Instance["eventName"] = townEvent.ToString();
 			PreggoLua.Instance["prog"] = prog.progress;
 			PreggoLua.Instance["saveController"] = __instance;
-			PreggoLua.Instance.RunFile("townEvent");
+			PreggoLua.Instance.RunFile("event_town");
 
 		}
 

@@ -758,6 +758,14 @@ namespace PortalsOfPreggoMain.Content
             SpreadCum(data, 60);
         }
 
+        public void PassTimeForAll(int minutes)
+        {
+            foreach (var data in AllData)
+            {
+                PassTime(data, minutes);
+            }
+        }
+
         public void PassTime(PreggoData data, int minutes)
         {
             var chara = data.GetCharacter();
@@ -887,6 +895,8 @@ namespace PortalsOfPreggoMain.Content
         public void Ovulate(PreggoData data)
         {
             var stats = data.GetCharacter();
+            if (stats.getModifiedFertility() <= 0)
+                return;
             if (data.BirthControl)
             {
                 BroadcastMessage(

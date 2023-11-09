@@ -52,6 +52,7 @@ public class PortalsOfPreggoPlugin : BaseUnityPlugin
         PreggoHarmony.PatchAll(typeof(Patches.TownPatches));
         PreggoHarmony.PatchAll(typeof(Patches.PartyPatches));
         PreggoHarmony.PatchAll(typeof(Patches.ItemPatches));
+        PreggoHarmony.PatchAll(typeof(Patches.OWPatches));
 
         Log.LogInfo("Patching complete.");
     }

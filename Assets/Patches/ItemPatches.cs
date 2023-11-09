@@ -54,6 +54,24 @@ namespace Patches
             public const string BirthControl    = "Birth Control Potion";
         }
 
+        public class PreggoItems
+        {
+            public Item PregAccel_1;
+            public Item PregAccel_2;
+            public Item PregAccel_3;
+
+            public Item Aborter;
+
+            public Item Ovu_1;
+            public Item Ovu_2;
+
+            public Item Fert;
+            public Item BirthControl;
+        }
+
+        public static PreggoItems Items;
+        public static List<Item> ItemList;
+
         public static void AddRecipes()
         {
             // just for reference
@@ -81,7 +99,143 @@ namespace Patches
         [HarmonyPostfix]
         private static void ItemController_Awake()
         {
+            CreateItems();
             InjectItems();
+        }
+
+        private static void CreateItems()
+        {
+            Items = new PreggoItems();
+            ItemList = new List<Item>();
+
+            var sprites = PrefabManager.Instance.Sprites;
+            Items.PregAccel_1 = new Item()
+            {
+                icon = sprites["1"],
+                name = ItemNames.PregAccel_1,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.common,
+                value = 15,
+                uses = 2,
+                CurrentUses = 2,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Accelerates pregnancies by 30%."
+            };
+            ItemList.Add(Items.PregAccel_1);
+
+            Items.PregAccel_2 = new Item()
+            {
+                icon = sprites["8"],
+                name = ItemNames.PregAccel_2,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.rare,
+                value = 30,
+                uses = 2,
+                CurrentUses = 2,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Accelerates pregnancies by 70%."
+            };
+            ItemList.Add(Items.PregAccel_2);
+
+            Items.PregAccel_3 = new Item()
+            {
+                icon = sprites["9"],
+                name = ItemNames.PregAccel_3,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.legendary,
+                value = 120,
+                uses = 2,
+                CurrentUses = 2,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Instantly completes pregnancies."
+            };
+            ItemList.Add(Items.PregAccel_3);
+
+            Items.Aborter = new Item()
+            {
+                icon = sprites["6"],
+                name = ItemNames.Aborter,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.rare,
+                value = 50,
+                uses = 2,
+                CurrentUses = 2,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Moves fertilized/implanted eggs to a nest in a different world."
+            };
+            ItemList.Add(Items.Aborter);
+
+            Items.Ovu_1 = new Item()
+            {
+                icon = sprites["2"],
+                name = ItemNames.Ovu_1,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.common,
+                value = 25,
+                uses = 3,
+                CurrentUses = 3,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Progresses the menstrual cycle (but not past ovulation)."
+            };
+            ItemList.Add(Items.Ovu_1);
+
+            Items.Ovu_2 = new Item()
+            {
+                icon = sprites["5"],
+                name = ItemNames.Ovu_2,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.legendary,
+                value = 150,
+                uses = 1,
+                CurrentUses = 1,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Immediately causes a uterus to ovulate. Phase must be Luteal to work."
+            };
+            ItemList.Add(Items.Ovu_2);
+
+            Items.Fert = new Item()
+            {
+                icon = sprites["10"],
+                name = ItemNames.Fert,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.legendary,
+                value = 250,
+                uses = 1,
+                CurrentUses = 1,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Permanently cures infertility."
+            };
+            ItemList.Add(Items.Fert);
+
+            Items.BirthControl = new Item()
+            {
+                icon = sprites["3"],
+                name = ItemNames.BirthControl,
+                useableInTown = true,
+                useableInbattle = false,
+                Rarity = Rarity.rare,
+                value = 5,
+                uses = 20,
+                CurrentUses = 20,
+                type = Item.Type.consumable,
+                passiveEffects = new Passives("", Passives.Type.Always),
+                description = "Enables/Disables ovulation."
+            };
+            ItemList.Add(Items.BirthControl);
         }
 
         private static ItemController _last_injected = null;
@@ -98,139 +252,24 @@ namespace Patches
                 return;
             }
             PortalsOfPreggoPlugin.Instance.Log.LogInfo("injecting items...");
-            
-            var sprites = PrefabManager.Instance.Sprites;
-
-
-            var accelerator_1 = new Item()
-            {
-                icon = sprites["1"],
-                name = ItemNames.PregAccel_1,
-                useableInTown   = true,
-                useableInbattle = false,
-                Rarity  = Rarity.common,
-                value   = 15,
-                uses    = 2,
-                type    = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Accelerates pregnancies by 30%."
-            };
-
-            var accelerator_2 = new Item()
-            {
-                icon = sprites["8"],
-                name = ItemNames.PregAccel_2,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.rare,
-                value = 30,
-                uses = 2,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Accelerates pregnancies by 70%."
-            };
-
-            var accelerator_3 = new Item()
-            {
-                icon = sprites["9"],
-                name = ItemNames.PregAccel_3,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.legendary,
-                value = 120,
-                uses = 2,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Instantly completes pregnancies."
-            };
-
-            var aborter = new Item()
-            {
-                icon = sprites["6"],
-                name = ItemNames.Aborter,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.rare,
-                value = 50,
-                uses = 2,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Moves fertilized/implanted eggs to a nest in a different world."
-            };
-
-            var ovu_1 = new Item()
-            {
-                icon = sprites["2"],
-                name = ItemNames.Ovu_1,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.common,
-                value = 25,
-                uses = 3,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Progresses the menstrual cycle (but not past ovulation)."
-            };
-
-            var ovu_2 = new Item()
-            {
-                icon = sprites["5"],
-                name = ItemNames.Ovu_2,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.legendary,
-                value = 150,
-                uses = 1,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Immediately causes a uterus to ovulate. Phase must be Luteal to work."
-            };
-
-            var fert = new Item()
-            {
-                icon = sprites["10"],
-                name = ItemNames.Fert,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.legendary,
-                value = 250,
-                uses = 1,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Permanently cures infertility."
-            };
-
-            var birthcontrol = new Item()
-            {
-                icon = sprites["3"],
-                name = ItemNames.BirthControl,
-                useableInTown = true,
-                useableInbattle = false,
-                Rarity = Rarity.rare,
-                value = 5,
-                uses = 20,
-                type = Item.Type.consumable,
-                passiveEffects = new Passives("", Passives.Type.Always),
-                description = "Enables/Disables ovulation."
-            };
 
             var ic = ItemController.instance;
             var pc = ic.commonItems.Length;
             var pr = ic.rareItems.Length;
             var pl = ic.legendaryItems.Length;
             ic.commonItems = ic.commonItems
-                .Append(accelerator_1)
-                .Append(ovu_1)
+                .Append(Items.PregAccel_1)
+                .Append(Items.Ovu_1)
                 .ToArray();
             ic.rareItems = ic.rareItems
-                .Append(accelerator_2)
-                .Append(aborter)
-                .Append(birthcontrol)
+                .Append(Items.PregAccel_2)
+                .Append(Items.Aborter)
+                .Append(Items.BirthControl)
                 .ToArray();
             ic.legendaryItems = ic.legendaryItems
-                .Append(accelerator_3)
-                .Append(ovu_2)
-                .Append(fert)
+                .Append(Items.PregAccel_3)
+                .Append(Items.Ovu_2)
+                .Append(Items.Fert)
                 .ToArray();
 
             PortalsOfPreggoPlugin.Instance.Log.LogInfo("items injected!");

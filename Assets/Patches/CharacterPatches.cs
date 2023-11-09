@@ -24,7 +24,8 @@ namespace Patches
 	}
 	public class CharacterPatches
 	{
-		private static bool DEBUG = false;
+		private static bool DEBUG  = false;
+		private static bool Primed = true;
 		static CharacterPatches()
         {
             PreggoManager.Instance.OnDataUpdated += Preggo_OnDataUpdated;
@@ -32,9 +33,8 @@ namespace Patches
 
         private static void Preggo_OnDataUpdated(PreggoData data)
         {
-			var ut = EnsureUterus(false);
 			if (data == Last)
-				InitUterusForData(data);
+				InitUterusForData(data, false, false);
         }
 
         [HarmonyPatch(typeof(Character), nameof(Character.fuck))]
@@ -74,9 +74,29 @@ namespace Patches
 			__result.EnsureGeneticsID(int.MinValue, int.MinValue + (int.MaxValue / 2));
         }
 
+		/// <summary>
+		/// Workaround to avoid new games throwing errors on character creation
+		/// getting stats is disabled before the save is started, and re-enabled after that
+		/// </summary>
+        [HarmonyPatch(typeof(CharacterCreationManager), nameof(CharacterCreationManager.confirm))]
+        [HarmonyPrefix]
+		private static void CharacterCreationManager_confirm()
+		{
+			Primed = false;
+		}
+        [HarmonyPatch(typeof(SceneController), nameof(SceneController.changeScene))]
+        [HarmonyPostfix]
+        private static void SceneController_changeScene(string name)
+		{
+			Primed = true;
+		}
 
         private static Stats GetInvolvedCharacter(SexAction2 act, Species specifrandom, bool otherisgiver)
 		{
+			if (!Primed)
+			{
+				return null;
+			}
             var date = DateManager.instance.GetOngoingDate();
             Stats other;
             if (DateManager.instance?.mainWindow?.activeSelf == true && date != null)
@@ -261,18 +281,16 @@ namespace Patches
 		private static bool IsPlayerChar;
 		private static Uterus EnsureUterus(bool showIfHidden)
 		{
-			if (CurrentUterus == null)
+			if (!CurrentUterus)
             {
 				CurrentUterus = PrefabManager.Instance.GetUterus();
 			}
-			else
+
+            if (showIfHidden && !CurrentUterus.gameObject.activeSelf)
             {
-				if (showIfHidden && !CurrentUterus.gameObject.activeSelf)
-                {
-					CurrentUterus.gameObject.SetActive(true);
-				}
+                CurrentUterus.gameObject.SetActive(true);
             }
-			return CurrentUterus;
+            return CurrentUterus;
 		}
 
 		private static TMPro.TMP_Text GetUterusText(Uterus u)
@@ -286,14 +304,14 @@ namespace Patches
 			var active = !ut.gameObject.activeSelf;
 			if (active)
 			{
-				InitUterusForData(Last);
+				InitUterusForData(Last, false, true);
 			}
 			ut.gameObject.SetActive(active);
 		}
 
-		private static void InitUterusForData(PreggoData mother, bool npc = false)
+		private static void InitUterusForData(PreggoData mother, bool npc, bool showIfHidden)
 		{
-			var ut = EnsureUterus(true);
+			var ut = EnsureUterus(showIfHidden);
 			if (mother == null)
 			{
 				ut.gameObject.SetActive(false);
@@ -306,8 +324,8 @@ namespace Patches
             }
 			Last = mother;
 			float size = 2.1f;
-			ut.gameObject.SetActive(true);
-			ut.Toggle.onValueChanged.RemoveAllListeners();
+            ut.gameObject.SetActive(true);
+            ut.Toggle.onValueChanged.RemoveAllListeners();
 			ut.Toggle.onValueChanged.AddListener(b =>
 			{
 				mother.Silenced = !b;
@@ -396,13 +414,16 @@ namespace Patches
 				=> new FText(" - Sperm from ").Size(cumSize) + new FText(x.Key.CharName).Clr(x.Key.CurrGender.ToColor())
 				.Size(cumSize) + new FText($" ({x.Key.species}): {Mathf.FloorToInt(x.Value)}ml").Size(cumSize)
 			)));
-		}
+
+			// workaround to avoid uterus window constantly popping up when moving in portals
+			ut.gameObject.SetActive(SaveController.instance.gamePhase == SaveController.GamePhase.Town);
+        }
 
 		[HarmonyPatch(typeof(CharacterManager), nameof(CharacterManager.closeWindow))]
 		[HarmonyPostfix]
 		private static void CharacterManager_closeWindow(bool canReturnToQuickMenu = false)
 		{
-			InitUterusForData(null);
+			InitUterusForData(null, false, false);
 		}
 
 
@@ -414,11 +435,11 @@ namespace Patches
 
 			if (!PreggoManager.Instance.TryGetData(cur, out var mother))
 			{
-				InitUterusForData(null);
+				InitUterusForData(null, false, false);
 				return;
 			}
 
-			InitUterusForData(mother);
+			InitUterusForData(mother, false, false);
 		}
 
 		[HarmonyPatch(typeof(LocationManager), nameof(LocationManager.updateButtons))]
@@ -427,7 +448,7 @@ namespace Patches
 		{
 			if (!TownInterfaceController.instance.locationCharacter?.activeSelf == true)
 			{
-				InitUterusForData(null);
+				InitUterusForData(null, true, false);
 				return;
 			}
 
@@ -436,12 +457,12 @@ namespace Patches
 
 			if (npc == null || !PreggoManager.Instance.TryGetData(npc.stats, out var npcData))
 			{
-				InitUterusForData(null);
+				InitUterusForData(null, true, false);
 				return;
 			}
 
 			//Debug.LogWarning("show npc uterus");
-			InitUterusForData(npcData, true);
+			InitUterusForData(npcData, true, true);
 		}
 
 		[HarmonyPatch(typeof(TownInterfaceController), nameof(TownInterfaceController.hideAll))]
@@ -449,7 +470,7 @@ namespace Patches
 		private static void LocationManager_hide(bool firstCall = false)
 		{
 			if (!IsPlayerChar)
-				InitUterusForData(null);
+				InitUterusForData(null, false, false);
 			
 		}
 

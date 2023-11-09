@@ -88,7 +88,15 @@ namespace PortalsOfPreggoMain.Content
                 switch (Type)
                 {
                     case PreggoType.MC:
-                        Character = SaveController.instance.mainCharacter.combatForm;
+                        try
+                        {
+                            Character = SaveController.instance.mainCharacter.combatForm;
+                        }
+                        catch (Exception e)
+                        {
+                            PortalsOfPreggoPlugin.Instance.Log.LogError($"error getting main character combatfrom");
+                            PortalsOfPreggoPlugin.Instance.Log.LogError(e.StackTrace);
+                        }
                         break;
                     case PreggoType.Player:
                         try
@@ -101,10 +109,17 @@ namespace PortalsOfPreggoMain.Content
                             PortalsOfPreggoPlugin.Instance.Log.LogError(e.StackTrace);
                             PortalsOfPreggoPlugin.Instance.Log.LogError("PREGGO DATA WILL BE REMOVED!!!");
                         }
-                        
                         break;
                     case PreggoType.NPC:
-                        Character = NPCManager.instance.getNpc(UniqueCharacter).stats;
+                        try
+                        {
+                            Character = SaveController.instance.npcs.First(x => x.name == UniqueCharacter).stats;
+                        }
+                        catch (Exception e)
+                        {
+                            PortalsOfPreggoPlugin.Instance.Log.LogError($"error getting npc {UniqueCharacter}");
+                            PortalsOfPreggoPlugin.Instance.Log.LogError(e.StackTrace);
+                        }
                         break;
                     case PreggoType.Invalid:
                     case PreggoType.Temp:

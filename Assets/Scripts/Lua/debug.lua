@@ -2,11 +2,11 @@
 -- log(eventName or "none")
 
 ---@type PreggoManager
-local preggo = get "Preggo"
+local preggo = require "Preggo"
 ---@type CharaInfo
-local charas = get "CharaInfo"
+local charas = require "CharaInfo"
 ---@type fun(...)
-local print = get "sub/print"
+local print = require "sub/print"
 
 local function _setgenid(ch, id)
 	local gene = ch.genetics

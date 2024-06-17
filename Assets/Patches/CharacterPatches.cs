@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using MoonSharp.Interpreter;
+using NPC;
 using PortalsOfPreggoMain.Content;
 using Skill;
 using System;
@@ -93,25 +95,30 @@ namespace Patches
 
         private static Stats GetInvolvedCharacter(SexAction2 act, Species specifrandom, bool otherisgiver)
 		{
-			if (!Primed)
+            Debug.LogWarning("is this working???");
+            if (!Primed)
 			{
-				return null;
+                Debug.LogWarning("NOT PRIMED");
+                return null;
 			}
-            var date = DateManager.instance.GetOngoingDate();
+            Date date;
             Stats other;
-            if (DateManager.instance?.mainWindow?.activeSelf == true && date != null)
+            if ((DateManager.instance?.mainWindow?.activeSelf == true)
+				&& ((date = DateManager.instance?.GetOngoingDate()) != null))
             {
-                //Debug.LogWarning("is in date, not valid");
+                Debug.LogWarning("is in date, not valid");
                 //return;
                 other = date.partner;
             }
             else if (CharacterManager.instance?.mainWindow?.activeSelf == true)
             {
+                Debug.LogWarning("involved: character window");
                 other = Traverse.Create(CharacterManager.instance).Field("currentCharacter").GetValue<Stats>();
             }
 			else
 			{
-				other = null;
+                Debug.LogWarning("involved: null");
+                other = null;
 			}
             
 			if (other != null && other.species != specifrandom)
@@ -120,7 +127,8 @@ namespace Patches
 			}
 			if (other == null)
             {
-				var rpart = otherisgiver
+                Debug.LogWarning("involved: new random");
+                var rpart = otherisgiver
 					? act.giver
 					: act.receiver;
 				var rgen = rpart == BodyPart.Cock
@@ -223,12 +231,13 @@ namespace Patches
 				}, tooltip));
 			});
 
+
             PreggoLua.Instance["current"] = s;
 			PreggoLua.Instance["pregData"] = pregData;
-			PreggoLua.Instance["addAct"] = _add;
+			PreggoLua.Instance["addAct"] = PreggoLua.Instance.MakeCallback(_add);
 			PreggoLua.Instance.RunFile("charOptions");
 
-			if (s.CurrGender != Stats.Gender.Female && s.CurrentEnergy > 0)
+			/*if (s.CurrGender != Stats.Gender.Female && s.CurrentEnergy > 0)
 			{
 				__result.Add(new CharacterManager.ActionButton("Collect cum", delegate
 				{
@@ -240,11 +249,21 @@ namespace Patches
                     SaveController.instance.stash.addItem(item);
 					LogController.instance.addMessage($"Collected {item.uses} unit(s) of cum!");
                 }, $"Collect some of {s.CharName}'s cum."));
-			}
+			}*/
 
 			foreach (var li in luaRes)
 				__result.Add(li);
 		}
+
+		private static bool IsMCChild(Stats chara)
+		{
+			if (chara == null)
+				return false;
+			var plrId = SaveController.instance.mainCharacter.combatForm.genetics.id;
+			return chara.genetics.fatherId == plrId
+				|| chara.genetics.motherId == plrId
+				|| chara.specialTraits.Any(x => x == SpecialTraits.SoulFragment);
+        }
 
 		[HarmonyPatch(typeof(CharacterManager), nameof(CharacterManager.setIntroDialogue))]
 		[HarmonyPostfix]

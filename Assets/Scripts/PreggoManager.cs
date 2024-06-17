@@ -480,6 +480,8 @@ namespace PortalsOfPreggoMain.Content
         public int LengthTotal;
         public int LengthPregnancy;
 
+        public int StatUpgradeRollCount = 8;
+
         public IEnumerable<PreggoData> AllData => Enumerable.Empty<PreggoData>()
             .Append(Save.MC)
             .Concat(Save.PlayerChars.Select(x => x.Value))
@@ -552,7 +554,6 @@ namespace PortalsOfPreggoMain.Content
 
         public void InitSave()
         {
-            Reset();
             var hmap = new HashSet<PreggoData>();
             if (TryGetData(SaveController.instance?.mainCharacter?.combatForm, out var plrd))
             {
@@ -715,7 +716,7 @@ namespace PortalsOfPreggoMain.Content
         public float GetCumAmount(Stats giver)
         {
             float volume = 0;
-            var virBonus = UnityEngine.Mathf.Log(giver.getModifiedVirility());
+            var virBonus = UnityEngine.Mathf.Log(UnityEngine.Mathf.Max(0.1f, giver.getModifiedVirility()));
             var virMult = 1f + virBonus;
             volume = giver.bodyFeatures.ballsSize;
 
@@ -1080,7 +1081,7 @@ namespace PortalsOfPreggoMain.Content
             if (data.Type == PreggoType.MC && PortalsOfPreggoPlugin.Instance.Settings.MainCharScaling.Value)
             {
                 var increased = new Dictionary<int, int>();
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < StatUpgradeRollCount; i++)
                 {
                     var stat = UnityEngine.Random.Range(0, 8);
                     if (egg.Embryo.genetics.GetStat(stat) > stats.genetics.GetStat(stat))
@@ -1173,6 +1174,7 @@ namespace PortalsOfPreggoMain.Content
 
         public void Reset()
         {
+            _Save = null;
             GeneticCache.Clear();
             PreggoDataCache.Clear();
             CumOnFloor.Clear();

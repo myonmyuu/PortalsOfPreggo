@@ -44,7 +44,7 @@ namespace Patches
 			}
 		}
 
-		private const BrothelShow.ShowAction LAST = BrothelShow.ShowAction.Dismiss;
+		private const BrothelShow.ShowAction LAST = BrothelShow.ShowAction.Lure;
 		private const BrothelShow.ShowAction _Ride = (BrothelShow.ShowAction)(LAST + 1);
 
 		[HarmonyPatch(typeof(BrothelShow), nameof(BrothelShow.getAvailableActions))]

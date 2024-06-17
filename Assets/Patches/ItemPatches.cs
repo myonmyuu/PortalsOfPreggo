@@ -74,7 +74,7 @@ namespace Patches
 
         public static void AddRecipes()
         {
-            // just for reference
+            /* just for reference
             SaveController.instance.addRecipe(
                 new CraftingRecipe(
                     Item.Type.consumable,
@@ -91,8 +91,22 @@ namespace Patches
                     0,
                     0
                 )
-            );
-            SaveController.instance.addCraftingMaterial(MaterialType.CondensedCrystal, 1);
+            );*/
+            //SaveController.instance.addCraftingMaterial(MaterialType.CondensedCrystal, 1);
+
+            SaveController.instance.addRecipe(new CraftingRecipe(
+                Item.Type.consumable,
+                ItemNames.Fert,
+                Rarity.legendary,
+                1,
+                new CraftingMaterial[]
+                {
+                    new CraftingMaterial(MaterialType.HealingSilk, 5),
+                    new CraftingMaterial(MaterialType.PortalFragment, 5),
+                    new CraftingMaterial(MaterialType.S_Light, 5)
+                },
+                crystal: 20
+            ));
         }
 
         [HarmonyPatch(typeof(ItemController), "Awake")]
@@ -101,6 +115,16 @@ namespace Patches
         {
             CreateItems();
             InjectItems();
+        }
+
+        [HarmonyPatch(typeof(SaveController), nameof(SaveController.initGameSettings))]
+        [HarmonyPostfix]
+        private static void SaveController_initGameSettings()
+        {
+            if (!PortalsOfPreggoPlugin.Instance.Settings.Items.Value)
+                return;
+
+            AddRecipes();
         }
 
         private static void CreateItems()

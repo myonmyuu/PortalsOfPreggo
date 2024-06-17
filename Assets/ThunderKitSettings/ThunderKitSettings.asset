@@ -15,7 +15,7 @@ MonoBehaviour:
   FirstLoad: 0
   ShowOnStartup: 1
   GameExecutable: PortalsOfPhereon.exe
-  GamePath: ..\PoP_V0.25.0.0_win
+  GamePath: ..\PoP_V0.27.0.1_win
   Is64Bit: 0
   DateTimeFormat: HH:mm:ss:fff
   CreatedDateFormat: MMM/dd HH:mm:ss

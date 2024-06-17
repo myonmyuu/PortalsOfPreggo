@@ -1,7 +1,7 @@
 return function (...)
 	local res = ""
 	for _, value in pairs({...}) do
-		res = res.." "..tostring(value)
+		res = res.."\t"..tostring(value)
 	end
 	log(res)
 end

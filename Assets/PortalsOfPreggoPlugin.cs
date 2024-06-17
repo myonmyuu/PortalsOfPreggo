@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[BepInPlugin(PortalsOfPreggoPlugin.ID, "Portals of Preggo", "0.1.0")]
+[BepInPlugin(PortalsOfPreggoPlugin.ID, "Portals of Preggo", "0.1.5")]
 public class PortalsOfPreggoPlugin : BaseUnityPlugin
 {
     public const string ID = "PortalsOfPreggo";
@@ -53,6 +53,7 @@ public class PortalsOfPreggoPlugin : BaseUnityPlugin
         PreggoHarmony.PatchAll(typeof(Patches.PartyPatches));
         PreggoHarmony.PatchAll(typeof(Patches.ItemPatches));
         PreggoHarmony.PatchAll(typeof(Patches.OWPatches));
+        PreggoHarmony.PatchAll(typeof(Patches.CombatPatches));
 
         Log.LogInfo("Patching complete.");
     }

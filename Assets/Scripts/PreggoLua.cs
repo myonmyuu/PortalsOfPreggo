@@ -1,9 +1,15 @@
 ﻿using MoonSharp.Interpreter;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Numerics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace PortalsOfPreggoMain.Content
 {
@@ -18,8 +24,9 @@ namespace PortalsOfPreggoMain.Content
             GlobalTable = GlobalScript.Globals;
             //GlobalTable = new MoonSharp.Interpreter.Table(GlobalScript);
 
-            GlobalTable["log"] = new Action<string>(e => PortalsOfPreggoPlugin.Instance.Log.LogInfo(e));
-            GlobalTable["get"] = new Func<string, object>((file) =>
+            GlobalTable["log"]      = new Action<string>(PortalsOfPreggoPlugin.Instance.Log.LogInfo);
+            GlobalTable["lerror"]   = new Action<string>(PortalsOfPreggoPlugin.Instance.Log.LogError);
+            GlobalTable["require"]  = new Func<string, object>((file) =>
             {
                 switch (file)
                 {
@@ -38,20 +45,70 @@ namespace PortalsOfPreggoMain.Content
                 }
                 return RunFile(file);
             });
-            GlobalTable["require"] = GlobalTable["get"];
-            GlobalTable["ftext"] = new Func<FText>(() => new FText());
 
-            var staticTable = new Table(GlobalScript);
-            foreach (var t in typeof(MainCharacter).Assembly.GetTypes())
+            GlobalTable["ftext"] = new Func<FText>(() => new FText());
+            TypeTable   = new Table(GlobalScript);
+            StaticTable = new Table(GlobalScript);
+            NewTable    = new Table(GlobalScript);
+            
+
+            RegisterAssembly(typeof(MainCharacter).Assembly, "PoP");
+            RegisterAssembly(typeof(PortalsOfPreggoPlugin).Assembly, "Preggo");
+            RegisterAssembly(typeof(Delegate).Assembly, "System");
+            RegisterAssembly(typeof(UnityEngine.Vector3).Assembly, "UnityEngine");
+            RegisterAssembly(typeof(TMP_Text).Assembly, "UnityEngine");
+            RegisterAssembly(typeof(UnityEngine.UI.Button).Assembly, "UnityEngine");
+
+            GlobalTable["_types"]       = TypeTable;
+            GlobalTable["_static"]      = StaticTable;
+            GlobalTable["new"]          = NewTable;
+            GlobalTable["_construct"]   = MakeCallback((ConstructDelegate)Construct);
+            GlobalTable["_cb"]          = new Func<Closure, Action>(cl => () => { cl.Call(); });
+
+            Script.GlobalOptions.CustomConverters.SetScriptToClrCustomConversion(
+                DataType.Function,
+                typeof(UnityEngine.Events.UnityAction),
+                dv => (UnityAction)(() => dv.Function.Call())
+            );
+
+            RunFile("setup");
+        }
+
+        public delegate object ConstructDelegate(Type t, params object[] args);
+        public object Construct(Type t, params object[] args)
+        {
+            return Activator.CreateInstance(t, args);
+        }
+
+        public void RegisterAssembly(Assembly assembly, string prefix = "")
+        {
+            foreach (var t in assembly.GetTypes())
             {
-                staticTable[t.Name] = t;
+                TypeTable[$"{prefix}.{t.Name}"]     = t;
+                StaticTable[$"{prefix}.{t.Name}"]   = UserData.CreateStatic(t);
+                NewTable[$"{prefix}.{t.Name}"]      = new Func<object>(() => Activator.CreateInstance(t));
             }
-            GlobalTable["_static"] = staticTable;
+        }
+
+        public void AddLuaPath(string path)
+        {
+            ExtraPaths.Add(path);
         }
 
         private string LuaPath = System.IO.Path.Combine(PortalsOfPreggoPlugin.Instance.Path, "scripts");
+        private List<string> ExtraPaths = new List<string>();
         private MoonSharp.Interpreter.Script GlobalScript;
         private MoonSharp.Interpreter.Table GlobalTable;
+
+        private MoonSharp.Interpreter.Table TypeTable;
+        private MoonSharp.Interpreter.Table StaticTable;
+        private MoonSharp.Interpreter.Table NewTable;
+
+        public DynValue MakeCallback(Delegate d)
+        {
+            return DynValue.NewCallback(CallbackFunction.FromDelegate(GlobalScript, d));
+        }
+
         public DynValue Run(string lua)
         {
             try
@@ -93,15 +150,19 @@ namespace PortalsOfPreggoMain.Content
 
         public DynValue RunFile(string file)
         {
-            var path = System.IO.Path.Combine(LuaPath, file + ".lua");
-
-            if (!System.IO.File.Exists(path))
+            foreach (var path in ExtraPaths.Append(LuaPath))
             {
-                UnityEngine.Debug.LogWarning($"unable to find lua file {path}");
-                return MoonSharp.Interpreter.DynValue.NewNil();
-            }
+                var finalpath = System.IO.Path.Combine(path, file + ".lua");
 
-            return Run(System.IO.File.ReadAllText(path));
+                if (!System.IO.File.Exists(finalpath))
+                {
+                    continue;
+                }
+
+                return Run(System.IO.File.ReadAllText(finalpath));
+            }
+            UnityEngine.Debug.LogWarning($"unable to find lua file {file}");
+            return MoonSharp.Interpreter.DynValue.NewNil();
         }
     }
 

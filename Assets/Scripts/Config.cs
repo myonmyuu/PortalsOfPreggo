@@ -47,12 +47,13 @@ namespace PortalsOfPreggoMain.Content
         private const int MINUTES_PER_DAY = 60 * 24;
         private static class Definitions
         {
-            private const string PREGGO_MAIN    = "Preggo";
-            private const string PREGGO_CUM     = "Cum";
-            private const string PREGGO_INCEST  = "Incest";
-            private const string PREGGO_CYCLE   = "Cycle";
-            private const string PREGGO_ANIMALS = "NonHuman";
-            private const string PREGGO_OTHER   = "Other";
+            private const string PREGGO_MAIN        = "Preggo";
+            private const string PREGGO_CUM         = "Cum";
+            private const string PREGGO_INCEST      = "Incest";
+            private const string PREGGO_CYCLE       = "Cycle";
+            private const string PREGGO_ANIMALS     = "NonHuman";
+            private const string PREGGO_GAMEPLAY    = "Gameplay";
+            private const string PREGGO_OTHER       = "Other";
 
             private static PreggoConfigSection MainSection = new PreggoConfigSection(PREGGO_MAIN);
 
@@ -73,6 +74,9 @@ namespace PortalsOfPreggoMain.Content
             public static PreggoConfig LengthLuteal     = CycleSection.GetNamedDefinition("Luteal length", "How many minutes an ovum should live for on average");
             public static PreggoConfig LengthPregnancy  = CycleSection.GetNamedDefinition("Pregnancy length", "How many minutes a pregnancy should take on average");
 
+            private static PreggoConfigSection GameplaySection = MainSection.SubSection(PREGGO_GAMEPLAY);
+            public static PreggoConfig PregnantShield   = GameplaySection.GetNamedDefinition("Pregnant Shield", "Pregnant characters get a shield each turn dependant on the child's hp gene");
+
             private static PreggoConfigSection Other    = MainSection.SubSection(PREGGO_OTHER);
             public static PreggoConfig DateVirginity    = Other.GetNamedDefinition("Date virginity", "Vagina-penetrating actions for virgins cost 1 lewdity more and deflower the character");
             public static PreggoConfig Items            = Other.GetNamedDefinition("Items", "Add pregnancy-related items");
@@ -87,6 +91,8 @@ namespace PortalsOfPreggoMain.Content
             CumMult             = Definitions.CumMultiplier.Bind<float>(instance, 1);
             VaginaLimit         = Definitions.VaginaLimit.Bind<float>(instance, 150);
             UterusLimit         = Definitions.UterusLimit.Bind<float>(instance, 100);
+
+            PregnantShield      = Definitions.PregnantShield.Bind<bool>(instance, true);
 
             IncestAdditions     = Definitions.IncestAdditions.Bind<bool>(instance, true);
 
@@ -107,7 +113,7 @@ namespace PortalsOfPreggoMain.Content
         public ConfigEntry<float> VaginaLimit;
         public ConfigEntry<float> UterusLimit;
 
-        public ConfigEntry<bool> NonHumanoid;
+        public ConfigEntry<bool> PregnantShield;
 
         public ConfigEntry<bool> IncestAdditions;
 

@@ -19,10 +19,18 @@ else
 	sentence:addRuleString("mother", mother.charName)
 end
 
-if father.genetics.id == charas.Player.genetics.id then
-	sentence:addRuleString("father", "your")
+if father.genetics.id ~= mother.genetics.id then
+	if father.genetics.id == charas.Player.genetics.id then
+		sentence:addRuleString("father", "your")
+	else
+		sentence:addRuleString("father", ("%s's"):format(father.charName))
+	end
 else
-	sentence:addRuleString("father", ("%s's"):format(father.charName))
+	if mother.genetics.id == charas.Player.genetics.id then
+		sentence:addRuleString("own", "your own ")
+	else
+		sentence:addRuleString("own", "her own ")
+	end
 end
 
 local t = ftext()

@@ -32,11 +32,12 @@ namespace Patches
                 System.IO.Directory.CreateDirectory(dir);
             System.IO.File.WriteAllBytes(path, save.PrepareForSave().ByteSerialize());
         }
-
+        
         [HarmonyPatch(typeof(SaveLoadManager), nameof(SaveLoadManager.loadGame))]
         [HarmonyPostfix]
         private static void LoadData(string s)
         {
+            PreggoManager.Instance.Reset();
             var path = GetSavePath(s);
             var dir = System.IO.Path.GetDirectoryName(path);
             if (!System.IO.Directory.Exists(dir))
@@ -58,5 +59,15 @@ namespace Patches
             PreggoManager.Instance.PassTimeForAll(0);
         }
 
+
+        [HarmonyPatch(typeof(SceneController), nameof(SceneController.changeScene))]
+        [HarmonyPostfix]
+        private static void ChangeScene(string name)
+        {
+            if (name.ToLower() != "startmenu")
+                return;
+
+            PreggoManager.Instance.Reset();
+        }
     }
 }
